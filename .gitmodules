@@ -1,0 +1,6 @@
+[submodule "sensorXel_app/src/xelsdk"]
+	path = sensorXel_app/src/xelsdk
+	url = https://github.com/ROBOTIS-GIT/XelNetwork_FwSDK.git
+[submodule "sensorXel_boot/src/xelsdk"]
+	path = sensorXel_boot/src/xelsdk
+	url = https://github.com/ROBOTIS-GIT/XelNetwork_FwSDK.git
