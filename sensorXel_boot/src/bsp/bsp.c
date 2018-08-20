@@ -35,8 +35,6 @@ void SystemClock_Config(void);
 
 void bspInit(void)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
-
   HAL_DeInit();
   HAL_Init();
 
@@ -55,7 +53,6 @@ void bspInit(void)
 void bspDeinit(void)
 {
   uint32_t i;
-  GPIO_InitTypeDef  GPIO_InitStruct;
 
   HAL_NVIC_DisableIRQ(TIM2_IRQn);
   HAL_NVIC_DisableIRQ(DMA1_Channel5_IRQn);

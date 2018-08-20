@@ -24,7 +24,7 @@ flash_page_attr_t   flash_page_attr[DRV_FLASH_PAGE_TOTAL];
 
 
 static err_code_t drvFlashErasePage(uint32_t page_addr);
-static err_code_t drvFlashErasePages(uint32_t start_page_addr, uint32_t page_cnt );
+//static err_code_t drvFlashErasePages(uint32_t start_page_addr, uint32_t page_cnt );
 
 bool drvFlashInit(void)
 {
@@ -141,6 +141,7 @@ static err_code_t drvFlashErasePage(uint32_t page_addr)
   return err_code;
 }
 
+/*
 err_code_t drvFlashErasePages(uint32_t start_page_addr, uint32_t page_cnt )
 {
 
@@ -165,4 +166,4 @@ err_code_t drvFlashErasePages(uint32_t start_page_addr, uint32_t page_cnt )
 
   return err_code;
 }
-
+*/

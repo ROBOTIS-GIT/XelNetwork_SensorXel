@@ -35,8 +35,6 @@ void SystemClock_Config(void);
 
 void bspInit(void)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
-
   HAL_DeInit();
   HAL_Init();
 

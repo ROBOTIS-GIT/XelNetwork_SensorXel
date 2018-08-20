@@ -89,3 +89,8 @@ void drvResetClearFlag(void)
 {
   __HAL_RCC_CLEAR_RESET_FLAGS();
 }
+
+void drvResetRunSoftReset(void)
+{
+
+}

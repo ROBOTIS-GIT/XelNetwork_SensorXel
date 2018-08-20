@@ -20,6 +20,7 @@ bool drvResetInit(void);
 uint8_t drvResetGetStatus(void);
 void drvResetRunWdgReset(void);
 void drvResetClearFlag(void);
+void drvResetRunSoftReset(void);
 
 
 #ifdef __cplusplus
