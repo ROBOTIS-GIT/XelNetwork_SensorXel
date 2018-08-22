@@ -52,12 +52,20 @@ void dxlSlaveInit(void)
   dxlAddProcessWriteFunc       (&p_ap->dxl_slave.node, processWrite);
 }
 
-void dxlSlaveLoop(void)
+bool dxlSlaveLoop(void)
 {
+  uint8_t ret = false;
+
+
   if (p_ap->p_dxl_motor->use == true)
   {
-    dxlProcessPacket(&p_ap->p_dxl_motor->node);
+    if (dxlProcessPacket(&p_ap->p_dxl_motor->node) != DXL_PROCESS_INST)
+    {
+      ret = true;
+    }
   }
+
+  return ret;
 }
 
 uint8_t processPing(uint8_t *p_data, uint16_t *p_length)

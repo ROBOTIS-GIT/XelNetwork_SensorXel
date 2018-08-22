@@ -48,6 +48,7 @@ void apInit(void)
 void apMain(void)
 {
   uint32_t pre_time = millis();
+  bool busy;
 
 
   dxlSlaveInit();
@@ -57,7 +58,11 @@ void apMain(void)
 
   while(1)
   {
-    dxlSlaveLoop();
+    busy = dxlSlaveLoop();
+    if ( busy == false)
+    {
+      // 명령어 처리중이 아니면..
+    }
 
     if(millis() - pre_time >= 500)
     {

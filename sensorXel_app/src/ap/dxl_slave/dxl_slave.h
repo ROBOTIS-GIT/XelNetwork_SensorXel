@@ -23,7 +23,7 @@
 
 void dxlSlaveInit(void);
 
-void dxlSlaveLoop(void);
+bool dxlSlaveLoop(void);
 
 
 
