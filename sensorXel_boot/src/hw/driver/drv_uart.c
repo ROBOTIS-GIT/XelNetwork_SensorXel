@@ -22,11 +22,11 @@
 /*
   USART1
     - RX : PA10, DMA1, Channel 5
-    - TX : PA9,  DMA1, Channel 4
+    - TX : PA9,  Polling //DMA1, Channel 4
 
   USART2
     - RX : PA3,  DMA1, Channel 6
-    - TX : PA2,  DMA1, Channel 7
+    - TX : PA2,  Polling //DMA1, Channel 7
 */
 
 
@@ -119,12 +119,12 @@ bool drvUartOpen(uint8_t channel, uint32_t baud, uint32_t option)
       if (channel == _DEF_UART1)
       {
         p_drv_uart->hw.h_uart_inst = USART1;
-        p_drv_uart->hw.tx_dma_enable  = true;
+        p_drv_uart->hw.tx_dma_enable  = false;
       }
       else if(channel == _DEF_UART2)
       {
         p_drv_uart->hw.h_uart_inst = USART2;
-        p_drv_uart->hw.tx_dma_enable  = true;
+        p_drv_uart->hw.tx_dma_enable  = false;
       }
 
       p_drv_uart->hw.dma_enable  = true;
@@ -434,20 +434,20 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
     /* Enable DMA clock */
     __HAL_RCC_DMA1_CLK_ENABLE();
 
-    /* Configure the DMA handler for Transmission process */
-    p_drv_uart->hw.hdma_tx.Instance                 = DMA1_Channel4;
-    p_drv_uart->hw.hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
-    p_drv_uart->hw.hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
-    p_drv_uart->hw.hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
-    p_drv_uart->hw.hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    p_drv_uart->hw.hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
-    p_drv_uart->hw.hdma_tx.Init.Mode                = DMA_NORMAL;
-    p_drv_uart->hw.hdma_tx.Init.Priority            = DMA_PRIORITY_LOW;
-
-    HAL_DMA_Init(&p_drv_uart->hw.hdma_tx);
-
-    /* Associate the initialized DMA handle to the the UART handle */
-    __HAL_LINKDMA((&p_drv_uart->hw.h_uart), hdmatx, (p_drv_uart->hw.hdma_tx));
+//    /* Configure the DMA handler for Transmission process */
+//    p_drv_uart->hw.hdma_tx.Instance                 = DMA1_Channel4;
+//    p_drv_uart->hw.hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
+//    p_drv_uart->hw.hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
+//    p_drv_uart->hw.hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
+//    p_drv_uart->hw.hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+//    p_drv_uart->hw.hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+//    p_drv_uart->hw.hdma_tx.Init.Mode                = DMA_NORMAL;
+//    p_drv_uart->hw.hdma_tx.Init.Priority            = DMA_PRIORITY_LOW;
+//
+//    HAL_DMA_Init(&p_drv_uart->hw.hdma_tx);
+//
+//    /* Associate the initialized DMA handle to the the UART handle */
+//    __HAL_LINKDMA((&p_drv_uart->hw.h_uart), hdmatx, (p_drv_uart->hw.hdma_tx));
 
 
     /* Configure the DMA handler for reception process */
@@ -498,20 +498,20 @@ void HAL_UART_MspInit(UART_HandleTypeDef *huart)
     /* Enable DMA clock */
     __HAL_RCC_DMA1_CLK_ENABLE();
 
-    /* Configure the DMA handler for Transmission process */
-    p_drv_uart->hw.hdma_tx.Instance                 = DMA1_Channel7;
-    p_drv_uart->hw.hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
-    p_drv_uart->hw.hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
-    p_drv_uart->hw.hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
-    p_drv_uart->hw.hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    p_drv_uart->hw.hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
-    p_drv_uart->hw.hdma_tx.Init.Mode                = DMA_NORMAL;
-    p_drv_uart->hw.hdma_tx.Init.Priority            = DMA_PRIORITY_LOW;
-
-    HAL_DMA_Init(&p_drv_uart->hw.hdma_tx);
-
-    /* Associate the initialized DMA handle to the the UART handle */
-    __HAL_LINKDMA((&p_drv_uart->hw.h_uart), hdmatx, (p_drv_uart->hw.hdma_tx));
+//    /* Configure the DMA handler for Transmission process */
+//    p_drv_uart->hw.hdma_tx.Instance                 = DMA1_Channel7;
+//    p_drv_uart->hw.hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;
+//    p_drv_uart->hw.hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;
+//    p_drv_uart->hw.hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;
+//    p_drv_uart->hw.hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+//    p_drv_uart->hw.hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_BYTE;
+//    p_drv_uart->hw.hdma_tx.Init.Mode                = DMA_NORMAL;
+//    p_drv_uart->hw.hdma_tx.Init.Priority            = DMA_PRIORITY_LOW;
+//
+//    HAL_DMA_Init(&p_drv_uart->hw.hdma_tx);
+//
+//    /* Associate the initialized DMA handle to the the UART handle */
+//    __HAL_LINKDMA((&p_drv_uart->hw.h_uart), hdmatx, (p_drv_uart->hw.hdma_tx));
 
     /* Configure the DMA handler for reception process */
     p_drv_uart->hw.hdma_rx.Instance                 = DMA1_Channel6;

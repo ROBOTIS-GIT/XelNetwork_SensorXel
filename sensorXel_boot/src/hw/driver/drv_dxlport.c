@@ -48,9 +48,6 @@ static void  (*txDoneISR[_HW_DEF_DXLPORT_CH_MAX])(void);
 
 //-- Internal Functions
 //
-//static void drvDxlportTxDoneISR1(void);
-
-
 
 //-- External Functions
 //
@@ -89,13 +86,7 @@ bool drvDxlportOpen(uint8_t ch, uint32_t baud)
 
   if (ch >= _HW_DEF_DXLPORT_CH_MAX) return false;
 
-
   uartOpen(dxlport_tbl[ch].ch, baud);
-
-  if (ch == _DEF_DXL1)
-  {
-    //drvUartSetTxDoneISR(dxlport_tbl[ch].ch, drvDxlportTxDoneISR1);
-  }
 
   return ret;
 }
@@ -199,31 +190,10 @@ uint32_t drvDxlportWrite(uint8_t ch, uint8_t *p_data, uint32_t length)
 
   drvDxlportTxEnable(ch);
 
-
   ret = uartWrite(dxlport_tbl[ch].ch, p_data, length);
 
-
-  // DXL1은 데이터 송신을 DMA를 사용함으로써 TxDisable은 데이터 종료 인터럽트에서 실행.
-  //
-  if (ch != _DEF_DXL1)
-  {
-    drvDxlportTxDisable(ch);
-    tx_done[ch] = true;
-  }
+  drvDxlportTxDisable(ch);
+  tx_done[ch] = true;
 
   return ret;
 }
-
-/*
-void drvDxlportTxDoneISR1(void)
-{
-  drvDxlportTxDisable(_DEF_DXL1);
-
-  tx_done[_DEF_DXL1] = true;
-
-  if (txDoneISR[_DEF_DXL1] != NULL)
-  {
-    (*txDoneISR[_DEF_DXL1])();
-  }
-}
-*/
