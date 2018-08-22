@@ -70,6 +70,8 @@
 #define _USE_HW_DXL
 #define _USE_HW_MUX
 
+#define _USE_HW_CTABLE
+
 //#define _USE_HW_CMDIF_GPIO
 //#define _USE_HW_CMDIF_BUTTON
 //#define _USE_HW_CMDIF_LED

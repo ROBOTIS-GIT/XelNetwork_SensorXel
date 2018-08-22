@@ -314,7 +314,6 @@ static bool drvAdcInitTriggerTimer(void)
 {
   static TIM_HandleTypeDef    hTIM4;
   TIM_MasterConfigTypeDef sMasterConfig;
-  TIM_OC_InitTypeDef   sConfig;
 
   __HAL_RCC_TIM4_CLK_ENABLE();
 
