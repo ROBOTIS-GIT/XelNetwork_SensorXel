@@ -38,8 +38,6 @@ int main(void)
   apInit();
   apMain();
 
-  testMain();
-
   return 0;
 }
 

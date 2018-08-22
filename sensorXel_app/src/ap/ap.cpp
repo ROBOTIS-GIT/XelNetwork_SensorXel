@@ -37,12 +37,9 @@ void apMain(void)
 {
   uint32_t pre_time = millis();
 
-  testMain();
 
   while(1)
   {
-    cmdifMain();
-
     if(millis() - pre_time >= 500)
     {
       pre_time = millis();
