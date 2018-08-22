@@ -13,7 +13,7 @@
 
 //-- External Variables
 //
-//dxl_node_t dxl_node;
+dxl_node_t dxl_node;
 
 //-- Internal Functions
 
@@ -23,11 +23,11 @@ void apInit(void)
 {
   cmdifBegin(_DEF_UART2, 57600);
 
-//  dxl_node.use  = true;
-//  dxl_node.ch   = _DEF_DXL1;
-//  dxl_node.baud = 1000000;
-//  dxlInit    (&dxl_node.node, DXL_PACKET_VER_2_0);
-//  dxlOpenPort(&dxl_node.node, dxl_node.ch, dxl_node.baud);
+  dxl_node.use  = true;
+  dxl_node.ch   = _DEF_DXL1;
+  dxl_node.baud = 1000000;
+  dxlInit    (&dxl_node.node, DXL_PACKET_VER_2_0);
+  dxlOpenPort(&dxl_node.node, dxl_node.ch, dxl_node.baud);
 
   ledOn(_DEF_LED1);
 }
