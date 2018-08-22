@@ -63,6 +63,7 @@
 #define _USE_HW_EEPROM
 #define _USE_HW_FLASH
 #define _USE_HW_PWM
+#define _USE_HW_CTABLE
 
 #define _USE_HW_DXLPORT
 #define _USE_HW_DXLCMD

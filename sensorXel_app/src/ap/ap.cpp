@@ -11,9 +11,14 @@
 
 #include "test.h"
 
+
+static ap_t ap_log;
+
+ap_t *p_ap = &ap_log;
+
+
+
 //-- External Variables
-//
-//dxl_node_t dxl_node;
 
 //-- Internal Functions
 
@@ -23,11 +28,18 @@ void apInit(void)
 {
   cmdifBegin(_DEF_UART2, 57600);
 
-//  dxl_node.use  = true;
-//  dxl_node.ch   = _DEF_DXL1;
-//  dxl_node.baud = 1000000;
-//  dxlInit    (&dxl_node.node, DXL_PACKET_VER_2_0);
-//  dxlOpenPort(&dxl_node.node, dxl_node.ch, dxl_node.baud);
+  p_ap->model_number = DXL_MODEL_NUMBER;
+  p_ap->firmware_version = 1;
+
+
+
+  p_ap->dxl_slave.use  = true;
+  p_ap->dxl_slave.ch   = _DEF_DXL1;
+  p_ap->dxl_slave.id   = DXL_INIT_ID;
+  p_ap->dxl_slave.baud = 57600;
+
+  p_ap->p_dxl_motor  = &p_ap->dxl_slave;
+
 
   ledOn(_DEF_LED1);
 }
@@ -38,8 +50,15 @@ void apMain(void)
   uint32_t pre_time = millis();
 
 
+  dxlSlaveInit();
+  dxlCtableInit();
+
+
+
   while(1)
   {
+    dxlSlaveLoop();
+
     if(millis() - pre_time >= 500)
     {
       pre_time = millis();
