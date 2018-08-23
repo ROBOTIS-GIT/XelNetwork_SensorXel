@@ -16,7 +16,7 @@
 void updateVersion(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length);
 void updateDxlId(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length);
 void updateDxlBaud(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length);
-
+void updateMillis(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length);
 
 
 ctable_attribute_t ctable_sensor[] =
@@ -26,7 +26,10 @@ ctable_attribute_t ctable_sensor[] =
   { P_CONST_MODEL_INFO,             4,     1, _ATTR_RD           ,                 0, _UPDATE_NONE    , _DEF_TYPE_U32,    NULL },
   { P_CONST_FW_VERSION,             1,     1, _ATTR_RD           ,                 1, _UPDATE_NONE    , _DEF_TYPE_U08,    updateVersion },
   { P_EEP_ID,                       1,     1, _ATTR_RD | _ATTR_WR,       DXL_INIT_ID, _UPDATE_STARTUP , _DEF_TYPE_U08,    updateDxlId },
-  { P_EEP_DXL_BAUDRATE,             1,     1, _ATTR_RD | _ATTR_WR,                 3, _UPDATE_STARTUP , _DEF_TYPE_U08,    updateDxlBaud },
+  { P_EEP_DXL_BAUDRATE,             1,     1, _ATTR_RD | _ATTR_WR,     DXL_INIT_BAUD, _UPDATE_STARTUP , _DEF_TYPE_U08,    updateDxlBaud },
+  { P_MILLIS,                       4,     1, _ATTR_RD           ,                 0, _UPDATE_NONE    , _DEF_TYPE_U32,    updateMillis },
+
+
 
 
 
@@ -44,6 +47,15 @@ ctable_attribute_t ctable_sensor[] =
 
 void dxlCtableInit(void)
 {
+  if (eepromReadByte(EEP_ADDR_CHECK_AA) != 0xAA || eepromReadByte(EEP_ADDR_CHECK_55) != 0x55)
+  {
+    eepromWriteByte(EEP_ADDR_CHECK_AA, 0xAA);
+    eepromWriteByte(EEP_ADDR_CHECK_55, 0x55);
+
+    eepromWriteByte(EEP_ADDR_ID, DXL_INIT_ID);
+    eepromWriteByte(EEP_ADDR_BAUD, DXL_INIT_BAUD);
+  }
+
   ctableInit(&p_ap->ctable, NULL, 1024, ctable_sensor);
 }
 
@@ -200,3 +212,14 @@ void updateDxlBaud(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p
   }
 }
 
+void updateMillis(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length)
+{
+  data_t value;
+
+
+  if (mode == _UPDATE_RD)
+  {
+    value.u32Data = millis();
+    memcpy(p_data, &value.u8Data[update_addr], update_length);
+  }
+}

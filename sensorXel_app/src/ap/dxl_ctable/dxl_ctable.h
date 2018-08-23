@@ -13,13 +13,14 @@
 #include "hw.h"
 
 
-#define DXL_MODEL_NUMBER                        450
-#define DXL_INIT_ID                             200
+#define DXL_MODEL_NUMBER                        460
+#define DXL_INIT_ID                             1
+#define DXL_INIT_BAUD                           3    // 1Mbps
 
 
 
-#define EEP_ADDR_CHECK_A                        0
-#define EEP_ADDR_CHECK_5                        1
+#define EEP_ADDR_CHECK_AA                       0
+#define EEP_ADDR_CHECK_55                       1
 #define EEP_ADDR_ID                             2
 #define EEP_ADDR_BAUD                           3
 
@@ -29,6 +30,8 @@
 #define P_CONST_FW_VERSION                      6
 #define P_EEP_ID                                7
 #define P_EEP_DXL_BAUDRATE                      8
+
+#define P_MILLIS                                12
 
 
 

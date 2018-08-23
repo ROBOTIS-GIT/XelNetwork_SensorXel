@@ -155,9 +155,12 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
+extern void swtimerISR(void);
 void SysTick_Handler(void)
 {
   HAL_IncTick();
+
+  swtimerISR();
 }
 
 /******************************************************************************/
