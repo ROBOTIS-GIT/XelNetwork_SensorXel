@@ -236,13 +236,13 @@ void updateMillis(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_
 
 void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length)
 {
-  static xels_header_t xel_header = {
-      XelNetwork::DataType::UINT32,
+  static XelNetwork::XelHeader_t xel_header = {
+      XelNetwork::DataType::BOOLEAN,
       5,
-      "millis",
-      ros2::TOPICS_PUBLISH,
+      "led",
+      ros2::TOPICS_SUBSCRIBE,
       128,
-      4
+      1
   };
 
   uint8_t *p_value;
@@ -281,7 +281,7 @@ void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t 
         break;
 
       case P_XEL_HEADER_DATA_LENGTH:
-        p_value = (uint8_t *)&xel_header.data_lenght;
+        p_value = (uint8_t *)&xel_header.data_length;
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
     }

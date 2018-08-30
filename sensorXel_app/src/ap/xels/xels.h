@@ -11,6 +11,7 @@
 
 #include "hw.h"
 #include "ap_def.h"
+#include "xel/xel_struct.hpp"
 
 
 
@@ -25,41 +26,6 @@ enum MessagePrefix{
   ACTION
 };
 }
-
-namespace XelNetwork
-{
-enum DataType
-{
-  BOOLEAN = 0,
-  CHAR,
-  INT8,
-  UINT8,
-  INT16,
-  UINT16,
-  INT32,
-  UINT32,
-  INT64,
-  UINT64,
-  FLOAT32,
-  FLOAT64,
-  VECTOR3,
-  QUATERNION,
-  POINT,
-  TWIST,
-  IMU
-};
-} //namespace XelNetwork
-
-typedef struct
-{
-  uint8_t   data_type;
-  uint32_t  data_get_interval_hz;
-  char      data_name[32];
-  uint8_t   msg_type;
-  uint16_t  data_addr;
-  uint8_t   data_lenght;
-} __attribute__((packed)) xels_header_t;
-
 
 typedef union
 {
@@ -82,7 +48,6 @@ typedef union
   //TWIST,
   //IMU
 } xel_data_type_t;
-
 
 
 void xelsInit(void);
