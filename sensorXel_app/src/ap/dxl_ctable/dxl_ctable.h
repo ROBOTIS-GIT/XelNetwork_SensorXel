@@ -24,6 +24,12 @@
 #define EEP_ADDR_ID                             2
 #define EEP_ADDR_BAUD                           3
 
+#define EEP_ADDR_XEL_HEADER_1_CHECK_AA          4
+#define EEP_ADDR_XEL_HEADER_1_CHECK_55          5
+#define EEP_ADDR_XEL_HEADER_1                   6    // len = 38
+#define EEP_ADDR_XEL_HEADER_1_CHECKSUM          44
+
+
 
 #define P_CONST_MODEL_NUMBER                    0
 #define P_CONST_MODEL_INFO                      2

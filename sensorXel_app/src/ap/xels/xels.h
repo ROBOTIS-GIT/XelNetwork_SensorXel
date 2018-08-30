@@ -42,15 +42,12 @@ typedef union
   uint64_t UINT64;
   float    FLOAT32;
   double   FLOAT64;
-  //VECTOR3,
-  //QUATERNION,
-  //POINT,
-  //TWIST,
-  //IMU
+  Imu_t    IMU;
 } xel_data_type_t;
 
 
 void xelsInit(void);
+uint8_t xelsGetDataTypeLength(uint8_t data_type);
 
 
 #endif /* SRC_AP_XELS_XELS_H_ */
