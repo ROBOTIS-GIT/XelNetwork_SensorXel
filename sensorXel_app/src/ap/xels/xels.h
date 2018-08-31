@@ -47,7 +47,9 @@ typedef union
 
 
 void xelsInit(void);
+XelNetwork::XelHeader_t * xelsGetHeader(uint8_t ch);
 uint8_t xelsGetDataTypeLength(uint8_t data_type);
-
+void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t length);
+void xelsWriteCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t length);
 
 #endif /* SRC_AP_XELS_XELS_H_ */

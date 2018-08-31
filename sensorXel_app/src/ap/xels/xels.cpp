@@ -10,14 +10,48 @@
 
 #include "xels.h"
 #include "dxl/dxl.h"
-#include "xel/xel_struct.hpp"
 
 
+
+static XelNetwork::XelHeader_t xel_header = {
+      XelNetwork::DataType::UINT32,
+      5,
+      "millis",
+      ros2::TOPICS_SUBSCRIBE,
+      128,
+      1
+  };
+
+static xel_data_type_t xel_data;
+
+
+
+void xelsInitCallback(uint8_t ch);
 
 
 
 void xelsInit(void)
 {
+  XelNetwork::XelHeader_t *p_xel_header;
+
+
+  p_xel_header = &xel_header;
+
+  p_xel_header->data_type            = XelNetwork::DataType::UINT32;
+  p_xel_header->data_get_interval_hz = 5;
+  p_xel_header->msg_type             = ros2::TOPICS_SUBSCRIBE;
+  p_xel_header->data_addr            = 128;
+  p_xel_header->data_length          = xelsGetDataTypeLength(p_xel_header->data_type);
+
+  strcpy(p_xel_header->data_name, "millis");
+
+
+  xelsInitCallback(0);
+}
+
+XelNetwork::XelHeader_t * xelsGetHeader(uint8_t ch)
+{
+  return &xel_header;
 }
 
 uint8_t xelsGetDataTypeLength(uint8_t data_type)
@@ -53,5 +87,74 @@ uint8_t xelsGetDataTypeLength(uint8_t data_type)
   }
 
   return ret;
+}
+
+void xelsInitCallback(uint8_t ch)
+{
+  XelNetwork::XelHeader_t *p_xel_header;
+  uint8_t data_type;
+
+  p_xel_header = xelsGetHeader(ch);
+
+  data_type = p_xel_header->data_type;
+  switch(data_type)
+  {
+    case XelNetwork::IMU:
+      break;
+  }
+}
+
+void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t length)
+{
+  XelNetwork::XelHeader_t *p_xel_header;
+  uint8_t data_type;
+
+  p_xel_header = xelsGetHeader(ch);
+
+  data_type = p_xel_header->data_type;
+  switch(data_type)
+  {
+    case XelNetwork::UINT32:
+      xel_data.UINT32 = millis();
+      break;
+
+    case XelNetwork::IMU:
+      xel_data.IMU.acc_x = 0;
+      xel_data.IMU.acc_y = 0;
+      xel_data.IMU.acc_z = 0;
+      xel_data.IMU.ang_x = 0;
+      xel_data.IMU.ang_y = 0;
+      xel_data.IMU.ang_z = 0;
+      break;
+  }
+
+
+  memcpy(p_data, &xel_data.u8Data[addr], length);
+}
+
+void xelsWriteCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t length)
+{
+  XelNetwork::XelHeader_t *p_xel_header;
+  uint8_t data_type;
+
+
+  p_xel_header = xelsGetHeader(ch);
+  memcpy(&xel_data.u8Data[addr], p_data, length);
+
+
+  data_type = p_xel_header->data_type;
+  switch(data_type)
+  {
+    case XelNetwork::BOOLEAN:
+      if (xel_data.BOOLEAN == 0)
+      {
+        ledOff(_DEF_LED1);
+      }
+      else
+      {
+        ledOn(_DEF_LED1);
+      }
+      break;
+  }
 }
 

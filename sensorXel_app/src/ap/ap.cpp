@@ -10,6 +10,7 @@
 #include "ap_def.h"
 
 #include "test.h"
+#include "xels/xels.h"
 
 
 static ap_t ap_log;
@@ -47,27 +48,21 @@ void apInit(void)
 
 void apMain(void)
 {
-  uint32_t pre_time = millis();
   bool busy;
 
 
+  xelsInit();
   dxlSlaveInit();
   dxlCtableInit();
 
 
-
+  ledOff(_DEF_LED1);
   while(1)
   {
     busy = dxlSlaveLoop();
     if ( busy == false)
     {
       // 명령어 처리중이 아니면..
-    }
-
-    if(millis() - pre_time >= 500)
-    {
-      pre_time = millis();
-      ledToggle(_DEF_LED1);
     }
   }
 }

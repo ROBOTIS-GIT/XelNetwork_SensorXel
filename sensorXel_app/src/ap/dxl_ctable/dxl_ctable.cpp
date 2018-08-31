@@ -225,17 +225,11 @@ void updateMillis(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_
 
 void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length)
 {
-  static XelNetwork::XelHeader_t xel_header = {
-      XelNetwork::DataType::UINT32,
-      5,
-      "millis",
-      ros2::TOPICS_SUBSCRIBE,
-      128,
-      1
-  };
-
+  static XelNetwork::XelHeader_t *p_xel_header;
   uint8_t *p_value;
   uint32_t index;
+
+  p_xel_header = xelsGetHeader(0);
 
   if (mode == _UPDATE_SETUP)
   {
@@ -248,7 +242,7 @@ void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t 
         check_sum ^= eepromReadByte(i);
       }
 
-      p_value = (uint8_t *)&xel_header;
+      p_value = (uint8_t *)p_xel_header;
 
       if (   check_sum != eepromReadByte(EEP_ADDR_XEL_HEADER_1_CHECKSUM)
           || eepromReadByte(EEP_ADDR_XEL_HEADER_1_CHECK_AA) != 0xAA
@@ -287,33 +281,33 @@ void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t 
     switch(addr)
     {
       case P_XEL_HEADER_DATA_TYPE:
-        p_value = (uint8_t *)&xel_header.data_type;
+        p_value = (uint8_t *)&p_xel_header->data_type;
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
 
       case P_XEL_HEADER_DATA_INTERVAL:
-        p_value = (uint8_t *)&xel_header.data_get_interval_hz;
+        p_value = (uint8_t *)&p_xel_header->data_get_interval_hz;
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
 
       case P_XEL_HEADER_DATA_NAME:
-        p_value = (uint8_t *)&xel_header.data_name[0];
+        p_value = (uint8_t *)&p_xel_header->data_name[0];
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
 
       case P_XEL_HEADER_MSG_TYPE:
-        p_value = (uint8_t *)&xel_header.msg_type;
+        p_value = (uint8_t *)&p_xel_header->msg_type;
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
 
       case P_XEL_HEADER_DATA_ADDR:
-        p_value = (uint8_t *)&xel_header.data_addr;
+        p_value = (uint8_t *)&p_xel_header->data_addr;
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
 
       case P_XEL_HEADER_DATA_LENGTH:
-        xel_header.data_length = xelsGetDataTypeLength(xel_header.data_type);
-        p_value = (uint8_t *)&xel_header.data_length;
+        p_xel_header->data_length = xelsGetDataTypeLength(p_xel_header->data_type);
+        p_value = (uint8_t *)&p_xel_header->data_length;
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
     }
@@ -324,22 +318,22 @@ void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t 
     switch(addr)
     {
       case P_XEL_HEADER_DATA_TYPE:
-        p_value = (uint8_t *)&xel_header.data_type;
+        p_value = (uint8_t *)&p_xel_header->data_type;
         memcpy(&p_value[update_addr], p_data, update_length);
         break;
 
       case P_XEL_HEADER_DATA_INTERVAL:
-        p_value = (uint8_t *)&xel_header.data_get_interval_hz;
+        p_value = (uint8_t *)&p_xel_header->data_get_interval_hz;
         memcpy(&p_value[update_addr], p_data, update_length);
         break;
 
       case P_XEL_HEADER_DATA_NAME:
-        p_value = (uint8_t *)&xel_header.data_name[0];
+        p_value = (uint8_t *)&p_xel_header->data_name[0];
         memcpy(&p_value[update_addr], p_data, update_length);
         break;
 
       case P_XEL_HEADER_MSG_TYPE:
-        p_value = (uint8_t *)&xel_header.msg_type;
+        p_value = (uint8_t *)&p_xel_header->msg_type;
         memcpy(&p_value[update_addr], p_data, update_length);
         break;
     }
@@ -360,17 +354,13 @@ void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t 
 
 void updateXelData(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t *p_data, uint16_t update_length)
 {
-  uint8_t xel_data[128];
-  uint8_t *p_value;
-  xel_data_type_t *p_data_type;
-
-
-  p_value = xel_data;
-  p_data_type = (xel_data_type_t *)xel_data;
-  p_data_type->UINT32 = millis();
-
   if (mode == _UPDATE_RD)
   {
-    memcpy(p_data, &p_value[update_addr], update_length);
+    xelsReadCallback(0, update_addr, p_data, update_length);
+  }
+
+  if (mode == _UPDATE_WR)
+  {
+    xelsWriteCallback(0, update_addr, p_data, update_length);
   }
 }
