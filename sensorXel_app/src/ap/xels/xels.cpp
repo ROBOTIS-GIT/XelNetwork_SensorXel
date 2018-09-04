@@ -114,8 +114,16 @@ void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t lengt
   data_type = p_xel_header->data_type;
   switch(data_type)
   {
-    case XelNetwork::UINT32:
-      xel_data.UINT32 = millis();
+    case XelNetwork::MILLIS:
+      xel_data.MILLIS = millis();
+      break;
+
+    case XelNetwork::LED:
+      xel_data.LED = 0;
+      break;
+
+    case XelNetwork::ANALOG:
+      xel_data.ANALOG = 0;
       break;
 
     case XelNetwork::IMU:
