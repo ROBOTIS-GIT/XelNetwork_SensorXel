@@ -46,7 +46,8 @@
 
 
 //#define _USE_HW_MLX90614
-//#define _USE_HW_IMU
+#define _USE_HW_IMU
+#define _USE_HW_ULTRA_SONIC
 
 
 #define _USE_HW_LED
@@ -70,7 +71,7 @@
 #define _USE_HW_DXL
 #define _USE_HW_MUX
 
-#define _USE_HW_CTABLE
+//#define _USE_HW_CTABLE
 
 //#define _USE_HW_CMDIF_GPIO
 //#define _USE_HW_CMDIF_BUTTON
@@ -120,6 +121,12 @@ typedef enum {
   MUX_GND      = 7
 } mux_channel_t;
 
+typedef enum {
+  MUX_UART = 0,
+  MUX_I2C  = 1,
+  MUX_SPI  = 2,
+
+} mux_default_set_t;
 
 
 #endif

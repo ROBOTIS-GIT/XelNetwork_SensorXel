@@ -32,8 +32,8 @@ void xelsInitCallback(uint8_t ch);
 
 void xelsInit(void)
 {
-  XelNetwork::XelHeader_t *p_xel_header;
 
+  XelNetwork::XelHeader_t *p_xel_header;
 
   p_xel_header = &xel_header;
 

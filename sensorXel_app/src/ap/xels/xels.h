@@ -44,8 +44,6 @@ typedef union
   double   FLOAT64;
   Imu_t    IMU;
   uint32_t MILLIS;
-  bool     LED;
-  uint16_t ANALOG;
 } xel_data_type_t;
 
 
