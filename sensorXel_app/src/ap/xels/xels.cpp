@@ -17,7 +17,7 @@ static XelNetwork::XelHeader_t xel_header = {
       XelNetwork::DataType::UINT32,
       5,
       "millis",
-      ros2::TOPICS_SUBSCRIBE,
+      XelNetwork::SEND,
       128,
       1
   };
@@ -39,7 +39,7 @@ void xelsInit(void)
 
   p_xel_header->data_type            = XelNetwork::DataType::UINT32;
   p_xel_header->data_get_interval_hz = 5;
-  p_xel_header->msg_type             = ros2::TOPICS_SUBSCRIBE;
+  p_xel_header->data_direction       = XelNetwork::SEND;
   p_xel_header->data_addr            = 128;
   p_xel_header->data_length          = xelsGetDataTypeLength(p_xel_header->data_type);
 

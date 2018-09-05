@@ -35,7 +35,7 @@ ctable_attribute_t ctable_sensor[] =
   { P_XEL_HEADER_DATA_TYPE,         1,     1, _ATTR_RD | _ATTR_WR,                 0, _UPDATE_SETUP   , _DEF_TYPE_U08,    updateXelHeader },
   { P_XEL_HEADER_DATA_INTERVAL,     4,     1, _ATTR_RD | _ATTR_WR,                 0, _UPDATE_NONE    , _DEF_TYPE_U32,    updateXelHeader },
   { P_XEL_HEADER_DATA_NAME,         1,    32, _ATTR_RD | _ATTR_WR,                 0, _UPDATE_NONE    , _DEF_TYPE_U08,    updateXelHeader },
-  { P_XEL_HEADER_MSG_TYPE,          1,     1, _ATTR_RD | _ATTR_WR,                 0, _UPDATE_NONE    , _DEF_TYPE_U08,    updateXelHeader },
+  { P_XEL_HEADER_DATA_DIRECTION,    1,     1, _ATTR_RD | _ATTR_WR,                 0, _UPDATE_NONE    , _DEF_TYPE_U08,    updateXelHeader },
   { P_XEL_HEADER_DATA_ADDR,         2,     1, _ATTR_RD | _ATTR_WR,                 0, _UPDATE_NONE    , _DEF_TYPE_U08,    updateXelHeader },
   { P_XEL_HEADER_DATA_LENGTH,       1,     1, _ATTR_RD | _ATTR_WR,                 0, _UPDATE_NONE    , _DEF_TYPE_U08,    updateXelHeader },
 
@@ -295,8 +295,8 @@ void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t 
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
 
-      case P_XEL_HEADER_MSG_TYPE:
-        p_value = (uint8_t *)&p_xel_header->msg_type;
+      case P_XEL_HEADER_DATA_DIRECTION:
+        p_value = (uint8_t *)&p_xel_header->data_direction;
         memcpy(p_data, &p_value[update_addr], update_length);
         break;
 
@@ -332,8 +332,8 @@ void updateXelHeader(uint32_t addr, uint8_t mode, uint16_t update_addr, uint8_t 
         memcpy(&p_value[update_addr], p_data, update_length);
         break;
 
-      case P_XEL_HEADER_MSG_TYPE:
-        p_value = (uint8_t *)&p_xel_header->msg_type;
+      case P_XEL_HEADER_DATA_DIRECTION:
+        p_value = (uint8_t *)&p_xel_header->data_direction;
         memcpy(&p_value[update_addr], p_data, update_length);
         break;
     }

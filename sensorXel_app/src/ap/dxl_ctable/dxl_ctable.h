@@ -43,7 +43,7 @@
 #define P_XEL_HEADER_DATA_TYPE                  32   // 1
 #define P_XEL_HEADER_DATA_INTERVAL              33   // 4
 #define P_XEL_HEADER_DATA_NAME                  37   // 32
-#define P_XEL_HEADER_MSG_TYPE                   69   // 1
+#define P_XEL_HEADER_DATA_DIRECTION             69   // 1
 #define P_XEL_HEADER_DATA_ADDR                  70   // 2
 #define P_XEL_HEADER_DATA_LENGTH                72   // 1
 #define P_XEL_DATA                              128  // 128
