@@ -10,6 +10,7 @@
 
 
 #include "hw_def.h"
+#include "hw.h"
 
 void mux_initSet(mux_default_set_t);
 

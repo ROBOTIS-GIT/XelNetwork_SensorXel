@@ -10,6 +10,7 @@
 
 #include "xels.h"
 #include "dxl/dxl.h"
+#include "xels/xels_db_access.h"
 
 
 
@@ -115,25 +116,49 @@ void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t lengt
   switch(data_type)
   {
     case XelNetwork::MILLIS:
-      xel_data.MILLIS = millis();
+	  xels_db_accessUpdateMillis(&xel_data);
       break;
 
     case XelNetwork::LED:
-      xel_data.LED = 0;
+      xels_db_accessUpdateLed(&xel_data);
       break;
 
-    case XelNetwork::ANALOG:
-      xel_data.ANALOG = 0;
+    case XelNetwork::ANALOG0:
+      xels_db_accessUpdateAnalog(&xel_data, _DEF_ADC1);
+      break;
+
+    case XelNetwork::ANALOG1:
+      xels_db_accessUpdateAnalog(&xel_data, _DEF_ADC2);
+      break;
+
+    case XelNetwork::ANALOG2:
+      xels_db_accessUpdateAnalog(&xel_data, _DEF_ADC3);
+      break;
+
+    case XelNetwork::ANALOG3:
+      xels_db_accessUpdateAnalog(&xel_data, _DEF_ADC4);
       break;
 
     case XelNetwork::IMU:
-      xel_data.IMU.acc_x = 0;
-      xel_data.IMU.acc_y = 0;
-      xel_data.IMU.acc_z = 0;
-      xel_data.IMU.ang_x = 0;
-      xel_data.IMU.ang_y = 0;
-      xel_data.IMU.ang_z = 0;
+      xels_db_accessUpdateIMU(&xel_data);
       break;
+
+    case XelNetwork::GPIO0:
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON1);
+	  break;
+
+    case XelNetwork::GPIO1:
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON2);
+	  break;
+
+    case XelNetwork::GPIO2:
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON3);
+	  break;
+
+    case XelNetwork::GPIO3:
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON4);
+	  break;
+
   }
 
 
@@ -153,16 +178,28 @@ void xelsWriteCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t leng
   data_type = p_xel_header->data_type;
   switch(data_type)
   {
-    case XelNetwork::BOOLEAN:
-      if (xel_data.BOOLEAN == 0)
-      {
-        ledOff(_DEF_LED1);
-      }
-      else
-      {
-        ledOn(_DEF_LED1);
-      }
+    case XelNetwork::LED:
+      xels_db_accessActivateLED(&xel_data);
       break;
+
+    case XelNetwork::GPIO0:
+      xels_db_accessActivateGPIO(&xel_data, _DEF_GPIO1);
+      break;
+
+    case XelNetwork::GPIO1:
+      xels_db_accessActivateGPIO(&xel_data, _DEF_GPIO2);
+      break;
+
+    case XelNetwork::GPIO2:
+      xels_db_accessActivateGPIO(&xel_data, _DEF_GPIO3);
+      break;
+
+    case XelNetwork::GPIO3:
+      xels_db_accessActivateGPIO(&xel_data, _DEF_GPIO4);
+      break;
+
+
+
   }
 }
 
