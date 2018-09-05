@@ -11,7 +11,7 @@
 
 #include "hw.h"
 #include "ap_def.h"
-#include "xel/xel_struct.hpp"
+#include "xels/xels_struct.hpp"
 
 
 
