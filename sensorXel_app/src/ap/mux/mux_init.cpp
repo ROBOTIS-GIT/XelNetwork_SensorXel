@@ -12,6 +12,7 @@
 
 void mux_initSet(mux_default_set_t mux_comm_type)
 {
+  muxInit();
 	switch(mux_comm_type)
 	{
 		case MUX_UART:

@@ -11,14 +11,14 @@
 #include "xels.h"
 #include "dxl/dxl.h"
 
-void xels_db_accessUpdateMillis(xel_data_type_t* xel_data);
-void xels_db_accessUpdateLed(xel_data_type_t* xel_data);
-void xels_db_accessUpdateAnalog(xel_data_type_t* xel_data, uint8_t adc_ch);
-void xels_db_accessUpdateIMU(xel_data_type_t* xel_data);
-void xels_db_accessUpdateGPIO(xel_data_type_t* xel_data, uint8_t gpio_ch);
+void xels_db_accessUpdateMillis(xel_data_type_t*);
+void xels_db_accessUpdateLed(xel_data_type_t*);
+void xels_db_accessUpdateAnalog(xel_data_type_t*, uint8_t);
+void xels_db_accessUpdateIMU(xel_data_type_t*);
+void xels_db_accessUpdateGPIO(xel_data_type_t*, uint8_t);
 
-void xels_db_accessActivateLED(xel_data_type_t* xel_data);
-void xels_db_accessActivateGPIO(xel_data_type_t* xel_data, uint8_t gpio_ch);
+void xels_db_accessActivateLED(xel_data_type_t*);
+void xels_db_accessActivateGPIO(xel_data_type_t*, uint8_t);
 
 
 

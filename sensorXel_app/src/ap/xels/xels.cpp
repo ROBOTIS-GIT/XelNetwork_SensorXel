@@ -144,19 +144,19 @@ void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t lengt
       break;
 
     case XelNetwork::GPIO0:
-    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON1);
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO1);
 	  break;
 
     case XelNetwork::GPIO1:
-    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON2);
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO2);
 	  break;
 
     case XelNetwork::GPIO2:
-    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON3);
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO3);
 	  break;
 
     case XelNetwork::GPIO3:
-    	xels_db_accessUpdateGPIO(&xel_data, _DEF_BUTTON4);
+    	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO4);
 	  break;
 
   }
