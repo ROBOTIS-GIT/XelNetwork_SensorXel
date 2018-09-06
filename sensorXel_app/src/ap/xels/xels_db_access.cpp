@@ -39,20 +39,23 @@ void xels_db_accessUpdateIMU(xel_data_type_t* xel_data)
 	mux_initSet(MUX_SPI);
 	imuInit();
 	ret = imuBegin();
-	imuUpdate(&imu_node);
+	if(ret == true)
+	{
+	  imuUpdate(&imu_node);
 
-	xel_data->IMU.quat_x = (double)imu_node.quat[0];
-	xel_data->IMU.quat_y = (double)imu_node.quat[1];
-	xel_data->IMU.quat_z = (double)imu_node.quat[2];
-	xel_data->IMU.quat_w = (double)imu_node.quat[3];
+	  xel_data->IMU.quat_x = (double)imu_node.quat[0];
+	  xel_data->IMU.quat_y = (double)imu_node.quat[1];
+	  xel_data->IMU.quat_z = (double)imu_node.quat[2];
+	  xel_data->IMU.quat_w = (double)imu_node.quat[3];
 
-	xel_data->IMU.acc_x = (double)imu_node.ax;
-	xel_data->IMU.acc_y = (double)imu_node.ay;
-	xel_data->IMU.acc_z = (double)imu_node.az;
+	  xel_data->IMU.acc_x = (double)imu_node.ax;
+	  xel_data->IMU.acc_y = (double)imu_node.ay;
+	  xel_data->IMU.acc_z = (double)imu_node.az;
 
-	xel_data->IMU.gyro_x = (double)imu_node.gx;
-	xel_data->IMU.gyro_y = (double)imu_node.gy;
-	xel_data->IMU.gyro_z = (double)imu_node.gz;
+	  xel_data->IMU.gyro_x = (double)imu_node.gx;
+	  xel_data->IMU.gyro_y = (double)imu_node.gy;
+	  xel_data->IMU.gyro_z = (double)imu_node.gz;
+	}
 }
 
 void xels_db_accessUpdateGPIO(xel_data_type_t* xel_data, uint8_t gpio_ch)
