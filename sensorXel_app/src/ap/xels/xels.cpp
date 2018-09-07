@@ -96,6 +96,9 @@ uint8_t xelsGetDataTypeLength(uint8_t data_type)
     case XelNetwork::IMU:
       ret = sizeof(Imu_t);
       break;
+    case XelNetwork::JOYSTICK:
+      ret = sizeof(JoyStick_t);
+      break;
     default:
       ret = 4;
       break;
@@ -153,10 +156,6 @@ void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t lengt
       xels_db_accessUpdateAnalog(&xel_data, _DEF_ADC4);
       break;
 
-    case XelNetwork::IMU:
-      xels_db_accessUpdateIMU(&xel_data);
-      break;
-
     case XelNetwork::GPIO0:
     	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO1);
     	break;
@@ -173,6 +172,14 @@ void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t lengt
     	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO4);
     	break;
 
+    case XelNetwork::IMU:
+      xels_db_accessUpdateIMU(&xel_data);
+      break;
+
+    case XelNetwork::JOYSTICK:
+      xels_db_accessUpdateJoyStick(&xel_data);
+      break;
+
   }
 
   memcpy(p_data, &xel_data.u8Data[addr], length);
@@ -182,7 +189,6 @@ void xelsWriteCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t leng
 {
   XelNetwork::XelHeader_t *p_xel_header;
   uint8_t data_type;
-
 
   p_xel_header = xelsGetHeader(ch);
   memcpy(&xel_data.u8Data[addr], p_data, length);
