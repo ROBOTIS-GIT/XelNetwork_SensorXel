@@ -66,15 +66,26 @@ uint8_t xelsGetDataTypeLength(uint8_t data_type)
     case XelNetwork::CHAR:
     case XelNetwork::INT8:
     case XelNetwork::UINT8:
+    case XelNetwork::LED:
+    case XelNetwork::GPIO0:
+    case XelNetwork::GPIO1:
+    case XelNetwork::GPIO2:
+    case XelNetwork::GPIO3:
       ret = 1;
       break;
     case XelNetwork::INT16:
     case XelNetwork::UINT16:
+    case XelNetwork::ANALOG0:
+    case XelNetwork::ANALOG1:
+    case XelNetwork::ANALOG2:
+    case XelNetwork::ANALOG3:
+
       ret = 2;
       break;
     case XelNetwork::INT32:
     case XelNetwork::UINT32:
     case XelNetwork::FLOAT32:
+    case XelNetwork::MILLIS:
       ret = 4;
       break;
     case XelNetwork::INT64:
@@ -84,6 +95,9 @@ uint8_t xelsGetDataTypeLength(uint8_t data_type)
       break;
     case XelNetwork::IMU:
       ret = sizeof(Imu_t);
+      break;
+    default:
+      ret = 4;
       break;
   }
 
@@ -116,7 +130,7 @@ void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t lengt
   switch(data_type)
   {
     case XelNetwork::MILLIS:
-	  xels_db_accessUpdateMillis(&xel_data);
+      xels_db_accessUpdateMillis(&xel_data);
       break;
 
     case XelNetwork::LED:
@@ -145,22 +159,21 @@ void xelsReadCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t lengt
 
     case XelNetwork::GPIO0:
     	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO1);
-	  break;
+    	break;
 
     case XelNetwork::GPIO1:
     	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO2);
-	  break;
+    	break;
 
     case XelNetwork::GPIO2:
     	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO3);
-	  break;
+    	break;
 
     case XelNetwork::GPIO3:
     	xels_db_accessUpdateGPIO(&xel_data, _DEF_GPIO4);
-	  break;
+    	break;
 
   }
-
 
   memcpy(p_data, &xel_data.u8Data[addr], length);
 }
@@ -173,7 +186,6 @@ void xelsWriteCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t leng
 
   p_xel_header = xelsGetHeader(ch);
   memcpy(&xel_data.u8Data[addr], p_data, length);
-
 
   data_type = p_xel_header->data_type;
   switch(data_type)
@@ -197,9 +209,6 @@ void xelsWriteCallback(uint8_t ch, uint16_t addr, uint8_t *p_data, uint16_t leng
     case XelNetwork::GPIO3:
       xels_db_accessActivateGPIO(&xel_data, _DEF_GPIO4);
       break;
-
-
-
   }
 }
 
