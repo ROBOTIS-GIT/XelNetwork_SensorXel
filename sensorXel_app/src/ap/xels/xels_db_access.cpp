@@ -78,7 +78,7 @@ void xels_db_accessActivateLED(xel_data_type_t* xel_data)
 
 void xels_db_accessActivateGPIO(xel_data_type_t* xel_data, uint8_t gpio_ch)
 {
-    gpioPinMode(gpio_ch, _DEF_OUTPUT_PULLUP);
+    gpioPinMode(gpio_ch, _DEF_OUTPUT);
     gpioPinWrite(gpio_ch, xel_data->BOOLEAN);
 }
 

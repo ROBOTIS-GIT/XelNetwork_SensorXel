@@ -13,7 +13,7 @@
 #define _TEST_ENABLE_VCP        0
 #define _TEST_ENABLE_LED        0
 #define _TEST_ENABLE_I2C        0
-#define _TEST_ENABLE_SPI        0
+#define _TEST_ENABLE_SPI        1
 
 
 
