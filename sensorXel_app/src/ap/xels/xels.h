@@ -30,21 +30,22 @@ enum MessagePrefix{
 
 typedef union
 {
-  uint8_t  u8Data[128];
-  uint8_t  BOOLEAN;
-  char     CHAR;
-  int8_t   INT8;
-  uint8_t  UINT8;
-  int16_t  INT16;
-  uint16_t UINT16;
-  int32_t  INT32;
-  uint32_t UINT32;
-  int64_t  INT64;
-  uint64_t UINT64;
-  float    FLOAT32;
-  double   FLOAT64;
-  Imu_t    IMU;
-  uint32_t MILLIS;
+  uint8_t    u8Data[128];
+  uint8_t    BOOLEAN;
+  char       CHAR;
+  int8_t     INT8;
+  uint8_t    UINT8;
+  int16_t    INT16;
+  uint16_t   UINT16;
+  int32_t    INT32;
+  uint32_t   UINT32;
+  int64_t    INT64;
+  uint64_t   UINT64;
+  float      FLOAT32;
+  double     FLOAT64;
+  uint32_t   MILLIS;
+  Imu_t      IMU;
+  JoyStick_t JOYSTICK;
 } xel_data_type_t;
 
 

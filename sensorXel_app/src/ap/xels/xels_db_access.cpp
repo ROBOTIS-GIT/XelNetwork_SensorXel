@@ -58,9 +58,21 @@ void xels_db_accessUpdateIMU(xel_data_type_t* xel_data)
 	}
 }
 
+void xels_db_accessUpdateJoyStick(xel_data_type_t* xel_data)
+{
+  adcInit();
+  adcSetup(_DEF_ADC1);
+  adcSetup(_DEF_ADC2);
+  gpioPinMode(_DEF_GPIO3, _DEF_INPUT);
+
+  xel_data->JOYSTICK.axis_x = (uint32_t)adcRead16(_DEF_ADC1);
+  xel_data->JOYSTICK.axis_y = (uint32_t)adcRead16(_DEF_ADC2);
+  xel_data->JOYSTICK.button = gpioPinRead(_DEF_GPIO3);
+}
+
 void xels_db_accessUpdateGPIO(xel_data_type_t* xel_data, uint8_t gpio_ch)
 {
-    gpioPinMode(gpio_ch, _DEF_INPUT_PULLUP);
+    gpioPinMode(gpio_ch, _DEF_INPUT);
     xel_data->BOOLEAN = gpioPinRead(gpio_ch);
 }
 

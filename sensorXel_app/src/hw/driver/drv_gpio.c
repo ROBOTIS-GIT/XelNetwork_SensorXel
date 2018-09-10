@@ -96,9 +96,8 @@ void drvGpioPinWrite(uint8_t channel, uint8_t bit)
       HAL_GPIO_WritePin(p_pindef->port, p_pindef->pin, GPIO_PIN_RESET);
       break;
     case _DEF_HIGH:
-      HAL_GPIO_WritePin(p_pindef->port, p_pindef->pin, GPIO_PIN_SET);
-      break;
     default:
+      HAL_GPIO_WritePin(p_pindef->port, p_pindef->pin, GPIO_PIN_SET);
       break;
   }
 }
