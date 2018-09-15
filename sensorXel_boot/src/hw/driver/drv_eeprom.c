@@ -76,7 +76,7 @@ err_code_t drvEepromReadBytes(uint32_t index, uint8_t* p_data_out, uint32_t leng
 
   for (addr_cnt=0; addr_cnt<length; addr_cnt++)
   {
-    p_data_out[addr_cnt++] = *(volatile uint8_t*)(addr+addr_cnt);
+    p_data_out[addr_cnt] = *(volatile uint8_t*)(addr+addr_cnt);
   }
 
   return OK;
@@ -204,7 +204,7 @@ err_code_t drvEepromFormat(void)
 
   HAL_FLASHEx_DATAEEPROM_Unlock();
 
-  for(i = 0; i < EEPROM_SIZE; i+4)
+  for(i = 0; i < EEPROM_SIZE; i += 4)
   {
     if(HAL_FLASHEx_DATAEEPROM_Erase(FLASH_TYPEERASEDATA_WORD, EEPROM_START_ADDRESS + i) != HAL_OK)
     {
