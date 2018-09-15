@@ -53,7 +53,7 @@ drv_timer_t drv_timer_tbl[_HW_DEF_TIMER_CH_MAX];
 
 bool drvTimerInit(void)
 {
-  uint8_t tim_ch;
+//  uint8_t tim_ch;
   uint8_t i;
 
 //  tim_ch = _DEF_TIMER1;
