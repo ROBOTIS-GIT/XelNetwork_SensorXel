@@ -3,7 +3,7 @@
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.ui.externaltools.launchGroup"/>
 </listAttribute>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/${project_name}/tools/xel_loader/linux/xel_loader}"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="${COM_PORT} 57600 08005000 ${workspace_loc:/${project_name}/Debug}/${project_name}.bin 1 1"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/${project_name}}"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="${workspace_loc:/sensorXel_app/tools/xel_loader/linux/xel_loader}"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value="${COM_PORT} 57600 08005000 sensorXel_app.bin 1 1"/>
+<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="${workspace_loc:/sensorXel_app/Debug}"/>
 </launchConfiguration>
