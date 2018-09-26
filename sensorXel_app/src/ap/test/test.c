@@ -59,10 +59,15 @@ static void testSpiMpu9250(void)
   int roll, pitch, yaw;
   bool ret;
 
+  gpioPinMode(0, _DEF_OUTPUT_PULLUP);
+  gpioPinWrite(0, 1);
+
   /* Set MUX */
-  muxSetChannel(MUX_ID_1, MUX_SPI_SCK);
-  muxSetChannel(MUX_ID_2, MUX_SPI_MOSI);
-  muxSetChannel(MUX_ID_3, MUX_SPI_MISO);
+  muxSetChannel(MUX_ID_0, MUX_SPI_SCK);
+  muxSetChannel(MUX_ID_1, MUX_SPI_MOSI);
+  muxSetChannel(MUX_ID_2, MUX_SPI_MISO);
+  gpioPinWrite(0, 0);
+
 
   imuInit();
 
