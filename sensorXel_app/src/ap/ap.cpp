@@ -48,6 +48,9 @@ void apInit(void)
 
 void apMain(void)
 {
+
+//  testMain();
+
   bool busy;
 
 

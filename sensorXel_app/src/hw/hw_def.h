@@ -105,9 +105,9 @@
 
 
 typedef enum {
-  MUX_ID_1 = 0,
-  MUX_ID_2 = 1,
-  MUX_ID_3 = 2,
+  MUX_ID_0 = 0,
+  MUX_ID_1 = 1,
+  MUX_ID_2 = 2,
 } mux_id_t;
 
 typedef enum {
