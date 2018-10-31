@@ -8,6 +8,10 @@
 #ifndef HMC5883_H_
 #define HMC5883_H_
 
+#ifdef __cplusplus
+  extern "C" {
+#endif
+
 #include "hw_def.h"
 
 #ifdef _USE_HW_HMC5883
@@ -87,6 +91,11 @@ bool hmc5883Begin(hmc5883_t *p_hmc5883, uint8_t i2c_ch);
 void hmc5883Calibrate(hmc5883_t *p_hmc5883);
 
 
+#endif
+
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* HMC5883_H_ */

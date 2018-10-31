@@ -12,6 +12,12 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
+
 #include "hw_def.h"
 
 #ifdef _USE_HW_MLX90614
@@ -59,6 +65,10 @@ void mlx90614ReadObjectTempC(mlx90614_t *p_mlx90614);
 void mlx90614ReadAmbientTempC(mlx90614_t *p_mlx90614);
 
 
+#endif
+
+#ifdef __cplusplus
+}
 #endif
 
 #endif /* MLX90614_H_ */
