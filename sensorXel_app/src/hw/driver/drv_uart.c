@@ -130,13 +130,14 @@ bool drvUartOpen(uint8_t channel, uint32_t baud, uint32_t option)
       p_drv_uart->hw.dma_enable  = true;
       p_drv_uart->hw.vcp_enable  = false;
 
-      p_drv_uart->hw.h_uart.Instance        = p_drv_uart->hw.h_uart_inst;
-      p_drv_uart->hw.h_uart.Init.BaudRate   = baud;
-      p_drv_uart->hw.h_uart.Init.WordLength = UART_WORDLENGTH_8B;
-      p_drv_uart->hw.h_uart.Init.StopBits   = UART_STOPBITS_1;
-      p_drv_uart->hw.h_uart.Init.Parity     = UART_PARITY_NONE;
-      p_drv_uart->hw.h_uart.Init.HwFlowCtl  = UART_HWCONTROL_NONE;
-      p_drv_uart->hw.h_uart.Init.Mode       = UART_MODE_TX_RX;
+      p_drv_uart->hw.h_uart.Instance          = p_drv_uart->hw.h_uart_inst;
+      p_drv_uart->hw.h_uart.Init.OverSampling = UART_OVERSAMPLING_8;
+      p_drv_uart->hw.h_uart.Init.BaudRate     = baud;
+      p_drv_uart->hw.h_uart.Init.WordLength   = UART_WORDLENGTH_8B;
+      p_drv_uart->hw.h_uart.Init.StopBits     = UART_STOPBITS_1;
+      p_drv_uart->hw.h_uart.Init.Parity       = UART_PARITY_NONE;
+      p_drv_uart->hw.h_uart.Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+      p_drv_uart->hw.h_uart.Init.Mode         = UART_MODE_TX_RX;
 
       HAL_UART_DeInit(&p_drv_uart->hw.h_uart);
       HAL_UART_Init(&p_drv_uart->hw.h_uart);
